@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Magic } from "magic-sdk";
 import { ConnectExtension } from "@magic-ext/connect";
 import Web3 from "web3";
+import TeamPicture from './component/TeamPicture';
 
 const magic = new Magic("pk_live_73AAE8A5F81B1CF3", {
   network: "goerli",
@@ -13,7 +14,7 @@ const magic = new Magic("pk_live_73AAE8A5F81B1CF3", {
 });
 const web3 = new Web3(magic.rpcProvider);
 
-function App() {
+export default function App() {
   const [account, setAccount] = useState(null);
 
   const signin = async () => {
@@ -37,9 +38,7 @@ function App() {
   return (
     <div>
       <Nav account={account} signin={signin} signout={signout} />
+      <TeamPicture />
     </div>
   );
 }
-
-
-export default App;
