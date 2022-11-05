@@ -1,25 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import Nav from './component/Nav';
+
+import { useState } from "react";
+import { Magic } from "magic-sdk";
+import { ConnectExtension } from "@magic-ext/connect";
+import Web3 from "web3";
+
+const magic = new Magic("pk_live_73AAE8A5F81B1CF3", {
+  network: "goerli",
+  locale: "en_US",
+  extensions: [new ConnectExtension()]
+});
+const web3 = new Web3(magic.rpcProvider);
 
 function App() {
+  const [account, setAccount] = useState(null);
+
+  const signin = async () => {
+    web3.eth
+      .getAccounts()
+      .then((accounts) => {
+        setAccount(accounts?.[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const signout = async () => {
+    await magic.connect.disconnect().catch((e) => {
+      console.log(e);
+    });
+    setAccount(null);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Nav account={account} signin={signin} signout={signout} />
     </div>
   );
 }
+
 
 export default App;
