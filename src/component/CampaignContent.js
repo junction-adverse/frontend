@@ -1,11 +1,12 @@
 import React from "react";
+import { useState } from "react";
 import { Modal, Input, Button, Text } from "@nextui-org/react";
 
-export default function CampaignContent(visible, setVisible, brand, description) {  
-  
-  const handler = () => setVisible(true);
+export default function CampaignContent({brand, description, setV}) {  
+  const [visible, setVisible] = useState(true);
 
   const closeHandler = () => {
+    setV(false);
     setVisible(false);
     console.log("closed");
   };
