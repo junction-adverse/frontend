@@ -5,8 +5,16 @@ import { useState } from "react";
 
 const CampaignCard = ({tagline, campaignTitle, brand, slogan, img, icon }) => {
   const [visible, setVisible] = useState(false);
-  const description = "woah";
   const handler = () => setVisible(true);
+  let description = "";
+
+    if (brand === "Nocco") {
+        description = "Create a 15-30 second Youtube Shorts video of you staying productive with NOCCO and post it on YouTube. It might be you having a NOCCO for your morning workout or a deep study session at night. Feel free to get creative! The video must clearly show the NOCCO brand for at least 3 seconds in the video."
+    } else if (brand === "Vitamin Well") {
+        description = "This challenge is open to those over the age of 18 as of submission date."
+    } else if (brand === "Eigar") {
+        description = "This challenge is open to those over the age of 18 as of submission date."
+    }
   
   return (
     <>
